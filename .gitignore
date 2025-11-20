@@ -1,0 +1,28 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+.sass-cache/
+.idea/
+.vscode/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Build artifacts
+/dist/
+/build/
+/assets/css/*.map
+/assets/js/*.map
+
+# PHP tools
+.phpintel/
+.php_cs.cache
+
+# Environment files
+.env
+
+# Other
+*.zip
