@@ -21,6 +21,23 @@ Custom WordPress theme designed to work with the ACF plugin.
    
    *Note: If you don't have the export file, export your ACF fields to `/sync/acf-export.json` using **Custom Fields > Tools > Export**.*
 
+4. Configure WooCommerce pages (Cart and Checkout):
+   
+   **Important:** The theme uses custom WooCommerce templates instead of block-based cart and checkout. After installing WooCommerce, you need to manually update the Cart and Checkout pages:
+   
+   - Go to **Pages** in WordPress admin
+   - Edit the **Cart** page:
+     - Remove any `<!-- wp:woocommerce/cart -->` blocks
+     - Add a **Shortcode** block with: `[woocommerce_cart]`
+     - Save/Update the page
+   
+   - Edit the **Checkout** page:
+     - Remove any `<!-- wp:woocommerce/checkout -->` blocks
+     - Add a **Shortcode** block with: `[woocommerce_checkout]`
+     - Save/Update the page
+   
+   *Note: The theme automatically disables block-based cart and checkout via code, but the page content must be manually updated to use shortcodes instead of blocks.*
+
 ## Workflow
 1. `git clone` or `git pull origin master`
 2. `git checkout -b feature/{Task Number}` - for bugs `bug/{Task Number}`

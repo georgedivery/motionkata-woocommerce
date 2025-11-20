@@ -1,0 +1,11 @@
+/* ------------------------------------------------------------ *\
+	woocommerce-MyAccount-navigation
+\* ------------------------------------------------------------ */
+
+.woocommerce-MyAccount-navigation ul { padding: 0; border: 1px solid #000; border-radius: 10px; overflow: hidden; }
+.woocommerce-MyAccount-navigation ul li a { display: block; text-decoration: none; padding: 10px 30px; }
+.woocommerce-MyAccount-navigation ul li a:hover { background: #e4e4e4 ; }
+.woocommerce-MyAccount-navigation ul li { border-bottom: 1px solid #000; }
+.woocommerce-MyAccount-navigation ul li:last-child { border-bottom: 0; }
+
+.woocommerce-MyAccount-content { padding-left: 20px; font-size: 1.2rem; }
