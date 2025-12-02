@@ -19,18 +19,10 @@ defined( 'ABSPATH' ) || exit;
 
 do_action( 'woocommerce_before_cart' ); ?>
 
-<div class="wc-modern-cart">
-	<div class="wc-modern-cart__grid">
-		<div class="wc-modern-cart__column wc-modern-cart__column--items">
-			<div class="wc-modern-cart__panel">
-				<div class="wc-modern-cart__panel-head">
-					<h3 class="wc-modern-cart__panel-title"><?php esc_html_e( 'Shopping cart', 'woocommerce' ); ?></h3>
-				</div>
-				<div class="wc-modern-cart__panel-body">
-					<form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
-						<?php do_action( 'woocommerce_before_cart_table' ); ?>
+<form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
+	<?php do_action( 'woocommerce_before_cart_table' ); ?>
 
-						<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
+	<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
 		<thead>
 			<tr>
 				<th class="product-remove"><span class="screen-reader-text"><?php esc_html_e( 'Remove item', 'woocommerce' ); ?></span></th>
@@ -175,130 +167,42 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 			<?php do_action( 'woocommerce_cart_contents' ); ?>
 
-							<tr>
-								<td colspan="6" class="actions">
-									<button type="submit" class="button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
+			<tr>
+				<td colspan="6" class="actions">
 
-									<?php do_action( 'woocommerce_cart_actions' ); ?>
+					<?php if ( wc_coupons_enabled() ) { ?>
+						<div class="coupon">
+							<label for="coupon_code" class="screen-reader-text"><?php esc_html_e( 'Coupon:', 'woocommerce' ); ?></label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" /> <button type="submit" class="button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
+							<?php do_action( 'woocommerce_cart_coupon' ); ?>
+						</div>
+					<?php } ?>
 
-									<?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
-								</td>
-							</tr>
+					<button type="submit" class="button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
+
+					<?php do_action( 'woocommerce_cart_actions' ); ?>
+
+					<?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
+				</td>
+			</tr>
 
 			<?php do_action( 'woocommerce_after_cart_contents' ); ?>
-						</tbody>
-						</table>
-						<?php do_action( 'woocommerce_after_cart_table' ); ?>
-					</form>
-				</div>
-			</div>
-		</div>
+		</tbody>
+	</table>
+	<?php do_action( 'woocommerce_after_cart_table' ); ?>
+</form>
 
-		<div class="wc-modern-cart__column wc-modern-cart__column--summary">
-			<?php if ( wc_coupons_enabled() ) { ?>
-				<div class="wc-modern-cart__panel wc-modern-cart__panel--coupon">
-					<div class="wc-modern-cart__panel-head">
-						<h3 class="wc-modern-cart__panel-title"><?php esc_html_e( 'Discount code', 'woocommerce' ); ?></h3>
-					</div>
-					<div class="wc-modern-cart__panel-body">
-						<div class="wc-modern-cart__coupon-form">
-							<input type="text" name="coupon_code" class="wc-modern-cart__coupon-input" id="cart_coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" />
-							<button type="button" class="wc-modern-cart__coupon-button" id="apply_cart_coupon"><?php esc_html_e( 'Apply', 'woocommerce' ); ?></button>
-							<div class="wc-modern-cart__coupon-feedback" id="cart_coupon_feedback"></div>
-						</div>
-						<?php do_action( 'woocommerce_cart_coupon' ); ?>
-					</div>
-				</div>
-			<?php } ?>
+<?php do_action( 'woocommerce_before_cart_collaterals' ); ?>
 
-			<div class="wc-modern-cart__panel wc-modern-cart__panel--totals">
-				<div class="wc-modern-cart__panel-head">
-					<h3 class="wc-modern-cart__panel-title"><?php esc_html_e( 'Cart totals', 'woocommerce' ); ?></h3>
-				</div>
-				<div class="wc-modern-cart__panel-body">
-					<?php do_action( 'woocommerce_before_cart_collaterals' ); ?>
-					<?php
-						/**
-						 * Cart collaterals hook.
-						 *
-						 * @hooked woocommerce_cross_sell_display
-						 * @hooked woocommerce_cart_totals - 10
-						 */
-						do_action( 'woocommerce_cart_collaterals' );
-					?>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="cart-collaterals">
+	<?php
+		/**
+		 * Cart collaterals hook.
+		 *
+		 * @hooked woocommerce_cross_sell_display
+		 * @hooked woocommerce_cart_totals - 10
+		 */
+		do_action( 'woocommerce_cart_collaterals' );
+	?>
 </div>
-
-<script>
-jQuery(function($) {
-	var $couponInput = $('#cart_coupon_code');
-	var $applyButton = $('#apply_cart_coupon');
-	var $feedback = $('#cart_coupon_feedback');
-	var $cartForm = $('.woocommerce-cart-form');
-
-	$applyButton.on('click', function(e) {
-		e.preventDefault();
-		var couponCode = $couponInput.val().trim();
-		
-		if (!couponCode) {
-			$feedback.removeClass('is-success').addClass('is-error').text('<?php esc_attr_e( 'Please enter a coupon code', 'woocommerce' ); ?>');
-			return;
-		}
-
-		$applyButton.prop('disabled', true).text('<?php esc_attr_e( 'Applying...', 'woocommerce' ); ?>');
-		$feedback.removeClass('is-error is-success').text('');
-
-		// Add coupon code to form and submit
-		var $hiddenCouponInput = $cartForm.find('input[name="coupon_code"]');
-		if ($hiddenCouponInput.length === 0) {
-			$cartForm.append('<input type="hidden" name="coupon_code" value="' + couponCode + '" />');
-		} else {
-			$hiddenCouponInput.val(couponCode);
-		}
-
-		var formData = $cartForm.serialize() + '&apply_coupon=<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>';
-
-		$.ajax({
-			type: 'POST',
-			url: wc_add_to_cart_params.ajax_url || '<?php echo esc_js( admin_url( 'admin-ajax.php' ) ); ?>',
-			data: formData + '&action=woocommerce_apply_coupon',
-			success: function(response) {
-				if (response && typeof response === 'object' && response.success) {
-					$feedback.removeClass('is-error').addClass('is-success').text(response.data && response.data.message ? response.data.message : '<?php esc_html_e( 'Coupon applied successfully', 'woocommerce' ); ?>');
-					$couponInput.val('');
-					$('body').trigger('wc_fragment_refresh');
-					location.reload();
-				} else {
-					var errorMsg = '<?php esc_attr_e( 'Invalid coupon code', 'woocommerce' ); ?>';
-					if (response && response.data && response.data.message) {
-						errorMsg = response.data.message;
-					}
-					$feedback.removeClass('is-success').addClass('is-error').text(errorMsg);
-				}
-			},
-			error: function() {
-				// Fallback to form submission
-				var formData2 = $cartForm.serialize() + '&apply_coupon=<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>';
-				$.post($cartForm.attr('action'), formData2, function() {
-					location.reload();
-				});
-			},
-			complete: function() {
-				$applyButton.prop('disabled', false).text('<?php esc_attr_e( 'Apply', 'woocommerce' ); ?>');
-			}
-		});
-	});
-
-	$couponInput.on('keypress', function(e) {
-		if (e.which === 13) {
-			e.preventDefault();
-			$applyButton.trigger('click');
-		}
-	});
-});
-</script>
 
 <?php do_action( 'woocommerce_after_cart' ); ?>

@@ -25,9 +25,13 @@ $show_shipping_calculator = ! empty( $show_shipping_calculator );
 $calculator_text          = '';
 ?>
 <tr class="woocommerce-shipping-totals shipping">
-	<th><?php echo wp_kses_post( $package_name ); ?></th>
-	<td data-title="<?php echo esc_attr( $package_name ); ?>">
-		<?php if ( ! empty( $available_methods ) && is_array( $available_methods ) ) : ?>
+	 
+	<td colspan="2" data-title="<?php echo esc_attr( $package_name ); ?>">
+		<div>
+			<div class="woocommerce-shipping-totals-title"><?php echo wp_kses_post( $package_name ); ?></div>
+
+			<div class="custom-shiping-coalc" >
+				<?php if ( ! empty( $available_methods ) && is_array( $available_methods ) ) : ?>
 			<ul id="shipping_method" class="woocommerce-shipping-methods">
 				<?php foreach ( $available_methods as $method ) : ?>
 					<li>
@@ -93,5 +97,9 @@ $calculator_text          = '';
 		<?php if ( $show_shipping_calculator ) : ?>
 			<?php woocommerce_shipping_calculator( $calculator_text ); ?>
 		<?php endif; ?>
+			</div>
+		</div>
+
+		
 	</td>
 </tr>

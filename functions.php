@@ -24,3 +24,58 @@ add_action('wp_enqueue_scripts', 'webbeb_scripts');
 // Create custom post type "Campaigns"
 // Example
 // $campaigns = new CustomPostType('Campaigns', 'Campaign', 'campaigns', ['category']);
+
+ 
+
+add_filter( 'woocommerce_checkout_fields', function( $fields ) {
+
+    // махаме ненужните полета
+    unset( $fields['billing']['billing_address_2'] );
+    unset( $fields['billing']['billing_postcode'] );
+
+    // правим телефон и имейл задължителни (ако искаш)
+    $fields['billing']['billing_phone']['required'] = true;
+    $fields['billing']['billing_email']['required'] = true;
+
+ 
+
+    // подреждане по priority:
+    // 10  Име
+    // 20  Фамилия
+    // 30  Телефон
+    // 40  Имейл
+    // 50  Област
+    // 60  Град
+    // 70  Адрес
+    $fields['billing']['billing_first_name']['priority'] = 10;
+    $fields['billing']['billing_last_name']['priority']  = 20;
+    $fields['billing']['billing_phone']['priority']      = 30;
+    $fields['billing']['billing_email']['priority']      = 40;
+    $fields['billing']['billing_state']['priority']      = 50;
+    $fields['billing']['billing_city']['priority']       = 60;
+    $fields['billing']['billing_address_1']['priority']  = 70;
+
+    return $fields;
+}, 9999 );
+
+add_action( 'wp_footer', function() {
+    if ( ! is_checkout() ) {
+        return;
+    }
+    ?>
+    <script>
+    jQuery(function($) {
+        function changeBillingAddressLabel() {
+          
+            $('#billing_address_1').attr(
+                'placeholder',
+                "Генерира се автоматично от доставката"
+            );
+        }
+
+        changeBillingAddressLabel();
+        $(document.body).on('updated_checkout', changeBillingAddressLabel);
+    });
+    </script>
+    <?php
+} );
