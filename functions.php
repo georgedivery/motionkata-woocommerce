@@ -36,17 +36,7 @@ add_filter( 'woocommerce_checkout_fields', function( $fields ) {
     // правим телефон и имейл задължителни (ако искаш)
     $fields['billing']['billing_phone']['required'] = true;
     $fields['billing']['billing_email']['required'] = true;
-
  
-
-    // подреждане по priority:
-    // 10  Име
-    // 20  Фамилия
-    // 30  Телефон
-    // 40  Имейл
-    // 50  Област
-    // 60  Град
-    // 70  Адрес
     $fields['billing']['billing_first_name']['priority'] = 10;
     $fields['billing']['billing_last_name']['priority']  = 20;
     $fields['billing']['billing_phone']['priority']      = 30;
@@ -57,14 +47,6 @@ add_filter( 'woocommerce_checkout_fields', function( $fields ) {
 
     return $fields;
 }, 9999 );
-
-// Remove default WooCommerce coupon form from checkout
-remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
-
-// Remove default terms and conditions from all default locations
-remove_action( 'woocommerce_checkout_before_order_review', 'woocommerce_checkout_terms_and_conditions', 10 );
-remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_terms_and_conditions', 10 );
-remove_action( 'woocommerce_checkout_after_order_review', 'woocommerce_checkout_terms_and_conditions', 10 );
 
 add_action( 'wp_footer', function() {
     if ( ! is_checkout() ) {
@@ -87,3 +69,11 @@ add_action( 'wp_footer', function() {
     </script>
     <?php
 } );
+
+// Remove default WooCommerce coupon form from checkout
+remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
+
+// Remove default terms and conditions from all default locations
+remove_action( 'woocommerce_checkout_before_order_review', 'woocommerce_checkout_terms_and_conditions', 10 );
+remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_terms_and_conditions', 10 );
+remove_action( 'woocommerce_checkout_after_order_review', 'woocommerce_checkout_terms_and_conditions', 10 );
