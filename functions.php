@@ -58,6 +58,14 @@ add_filter( 'woocommerce_checkout_fields', function( $fields ) {
     return $fields;
 }, 9999 );
 
+// Remove default WooCommerce coupon form from checkout
+remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
+
+// Remove default terms and conditions from all default locations
+remove_action( 'woocommerce_checkout_before_order_review', 'woocommerce_checkout_terms_and_conditions', 10 );
+remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_terms_and_conditions', 10 );
+remove_action( 'woocommerce_checkout_after_order_review', 'woocommerce_checkout_terms_and_conditions', 10 );
+
 add_action( 'wp_footer', function() {
     if ( ! is_checkout() ) {
         return;
