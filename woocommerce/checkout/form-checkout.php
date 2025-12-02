@@ -79,7 +79,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 			<?php if ( wc_coupons_enabled() ) { ?>
 				<div class="wc-modern-checkout__panel wc-modern-checkout__panel--coupon">
 					<div class="wc-modern-checkout__panel-head">
-						<h3 class="wc-modern-checkout__panel-title"><?php esc_html_e( 'Discount code', 'woocommerce' ); ?></h3>
+						<h3 class="wc-modern-checkout__panel-title"><?php esc_html_e( 'Код за отстъпка', 'woocommerce' ); ?></h3>
 					</div>
 					<div class="wc-modern-checkout__panel-body">
 						<div class="wc-modern-checkout__coupon-form">
